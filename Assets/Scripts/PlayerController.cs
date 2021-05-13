@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     public float explosionForce;
     public float explosionRadius;
 
+    public bool isGrounded;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +32,9 @@ public class PlayerController : MonoBehaviour
         float horizontalMovement = Input.GetAxis("Horizontal");
 
         //rigidbody.AddTorque(new Vector3(0, horizontalMovement, 0) * rotateSpeed); //aplica uma força de rotação no eixo dos Y
-        rigidbody.rotation = Quaternion.Euler(rigidbody.rotation.eulerAngles + new Vector3(0, horizontalMovement, 0) * rotateSpeed);
+        
+        rigidbody.rotation = Quaternion.Euler(rigidbody.rotation.eulerAngles 
+            + new Vector3(0, horizontalMovement, 0) * rotateSpeed);
 
         Vector3 newPosition = transform.forward * verticalMovement; //applies vertical movement
         //newPosition += transform.right * horizontalMovement; //applies horizontal movement
@@ -45,19 +49,27 @@ public class PlayerController : MonoBehaviour
 
         animator.SetFloat("speed", verticalMovement);
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            //rigidbody.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
             rigidbody.velocity = new Vector3(0, jumpForce, 0);
 
             animator.SetTrigger("jump");
         }
+    }
 
-        if(Input.GetKeyDown(KeyCode.Return))
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
         {
-            //rigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+            isGrounded = true;
         }
+    }
 
-        //Debug.Log("vertical: " + verticalMovement, gameObject);
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
     }
 }
