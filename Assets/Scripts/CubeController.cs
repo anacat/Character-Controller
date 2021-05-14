@@ -1,23 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CubeController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //Método chamado no evento marcado na animação do cubo
     public void CubeEvent()
     {
-        Debug.Log("Hello");
+        Debug.Log("Hello, this is the Cube animation event");
     }
 }
