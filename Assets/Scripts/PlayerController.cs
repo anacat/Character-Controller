@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
 
     public UnityEvent OnCoinCaught;
 
+    private float verticalMovement;
+    private float horizontalMovement;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,10 +30,27 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("speed", 0f);
     }
 
-    // Update is called once per frame
+    private void Update()
+    {
+        //Inputs sempre no Update
+
+        verticalMovement = Input.GetAxis("Vertical");
+        horizontalMovement = Input.GetAxis("Horizontal");
+
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            rigidbody.velocity = new Vector3(0, jumpForce, 0);
+
+            animator.SetTrigger("jump");
+        }
+    }
+
     void FixedUpdate()
     {
-        if(Physics.Raycast(transform.position, -Vector3.up, 1f)) //verifica se o jogador tem os pés no chão 
+        Debug.DrawRay(transform.position + new Vector3(0, 0.5f, 0), -transform.up, Color.red, Time.deltaTime);
+
+        //verifica se o jogador tem os pés no chão, damos um offset à posição para ter a certeza que o raycast passa no collider e não por baixo dele
+        if (Physics.Raycast(transform.position + new Vector3(0, 0.5f, 0), -transform.up, 1f)) 
         {
             isGrounded = true;
         }
@@ -38,9 +58,6 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
-
-        float verticalMovement = Input.GetAxis("Vertical");
-        float horizontalMovement = Input.GetAxis("Horizontal");
 
         //rigidbody.AddTorque(new Vector3(0, horizontalMovement, 0) * rotateSpeed); //aplica uma força de rotação no eixo dos Y
 
@@ -59,13 +76,6 @@ public class PlayerController : MonoBehaviour
         rigidbody.position += newPosition;
 
         animator.SetFloat("speed", verticalMovement);
-
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            rigidbody.velocity = new Vector3(0, jumpForce, 0);
-
-            animator.SetTrigger("jump");
-        }
     }
 
     private void OnCollisionEnter(Collision collision)

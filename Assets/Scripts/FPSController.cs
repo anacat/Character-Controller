@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class FPSController : MonoBehaviour
 {
+    public GameManager gameManager;
+
+    public GameObject bulletPrefab;
+
     [Header("Movement Parameters")]
     public float gravity = -9.8f;
     public float movementSpeed = 1f;
@@ -24,7 +28,7 @@ public class FPSController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Cursor.visible = true;
 
         characterController = GetComponent<CharacterController>();
         playerCamera = GetComponentInChildren<Camera>();
@@ -34,6 +38,39 @@ public class FPSController : MonoBehaviour
     {
         GetKeyboardInput();
         GetMouseInput();
+
+        ShootCoin();
+
+        if(Input.GetButtonDown("Fire1"))
+        {
+            InstantiateBullet();
+        }
+    }
+
+    private void InstantiateBullet()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, playerCamera.ScreenToWorldPoint(Input.mousePosition), playerCamera.transform.rotation);
+        bullet.GetComponent<BulletController>().gameManager = gameManager;
+    }
+
+    private void ShootCoin()
+    {
+        Debug.DrawRay(playerCamera.ScreenToWorldPoint(Input.mousePosition), playerCamera.transform.forward * 100f, Color.red, Time.deltaTime);
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 100f))
+            {
+                if (hit.collider.CompareTag("Coin"))
+                {
+                    Destroy(hit.collider.gameObject);
+                    gameManager.coinsCaught++;
+                }
+            }
+        }
     }
 
     private void GetMouseInput()
