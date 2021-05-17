@@ -44,12 +44,12 @@ public class PlayerController : MonoBehaviour
 
         //rigidbody.AddTorque(new Vector3(0, horizontalMovement, 0) * rotateSpeed); //aplica uma força de rotação no eixo dos Y
 
-        rigidbody.rotation = Quaternion.Euler(rigidbody.rotation.eulerAngles
-            + new Vector3(0, horizontalMovement, 0) * rotateSpeed);
+        rigidbody.rotation = Quaternion.Euler(rigidbody.rotation.eulerAngles + new Vector3(0, horizontalMovement, 0) * rotateSpeed);
 
+        //Vector3 strafe = transform.right * horizontalMovement; //applies horizontal movement
         Vector3 newPosition = transform.forward * verticalMovement; //applies vertical movement
-        //newPosition += transform.right * horizontalMovement; //applies horizontal movement
-
+        //newPosition += strafe;
+    
         newPosition.Normalize();
 
         newPosition *= speed * Time.fixedDeltaTime;
