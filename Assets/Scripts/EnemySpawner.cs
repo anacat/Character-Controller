@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
 
     public int round = 0;
     [Space(10)]
-    public float timeBetweenSpawns;
+    //public float timeBetweenSpawns;
     public float timeBetweenRounds;
     public int maxEnemies;
 
@@ -25,7 +25,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         roundTimer = timeBetweenRounds;
-        spawnTimer = timeBetweenSpawns;
+        //spawnTimer = timeBetweenSpawns;
     }
 
     // Update is called once per frame
@@ -68,6 +68,16 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
         }
+    }
+
+    public float GetRoundTimer()
+    {
+        return roundTimer;
+    }
+
+    public float GetSpawnTimer()
+    {
+        return spawnTimer;
     }
 }
 
