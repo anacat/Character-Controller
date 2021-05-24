@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,9 @@ using UnityEngine;
 public class FPSController : MonoBehaviour
 {
     public GameManager gameManager;
+
+    public AudioSource audioSource;
+    public AudioSource sfxAudioSource;
 
     public GameObject bulletPrefab;
 
@@ -16,6 +20,9 @@ public class FPSController : MonoBehaviour
     [Range(0, 10)] public float mouseSensitivity;
     public bool invertMouseY;
     public Vector2 yRotationLimit = new Vector2(-35f, 60f);
+
+    [Header("Audio Parameters")]
+    public AudioClip shotAudio;
 
     private Camera playerCamera;
     private CharacterController characterController;
@@ -41,7 +48,7 @@ public class FPSController : MonoBehaviour
 
         ShootCoin();
 
-        if(Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
             InstantiateBullet();
         }
@@ -70,6 +77,8 @@ public class FPSController : MonoBehaviour
                     gameManager.coinsCaught++;
                 }
             }
+
+            sfxAudioSource.PlayOneShot(shotAudio);
         }
     }
 
@@ -104,5 +113,14 @@ public class FPSController : MonoBehaviour
         Vector3 movement = ((forward + strafe).normalized + applyGravity) * movementSpeed * Time.deltaTime;
 
         characterController.Move(movement);
+
+        if ((Mathf.Abs(_horizontalMovement) > 0.1f || Mathf.Abs(_verticalMovement) > 0.1f) && !audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
+        else if(_horizontalMovement == 0 && _verticalMovement == 0)
+        {
+            audioSource.Stop();
+        }
     }
 }
