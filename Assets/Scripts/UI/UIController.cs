@@ -34,10 +34,12 @@ public class UIController : MonoBehaviour
 
             if (isPaused)
             {
+                AudioManager.Instance.ChangeToMenuMusic();
                 Time.timeScale = 0;
             }
             else
             {
+                AudioManager.Instance.ChangeToGameMusic();
                 Time.timeScale = 1;
             }
         }
@@ -48,11 +50,14 @@ public class UIController : MonoBehaviour
         isPaused = false;
         pauseGroup.SetActive(false);
 
+        AudioManager.Instance.ChangeToMenuMusic();
+
         Time.timeScale = 1;
     }
 
     public void ExitBtn()
     {
+        AudioManager.Instance.ChangeToGameMusic();
         SceneManager.LoadScene(0);
     }
 }

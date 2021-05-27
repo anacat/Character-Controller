@@ -7,7 +7,7 @@ public class FPSController : MonoBehaviour
 {
     public GameManager gameManager;
 
-    public AudioSource audioSource;
+    public AudioSource footstepsAudioSource;
     public AudioSource sfxAudioSource;
 
     public GameObject bulletPrefab;
@@ -58,6 +58,8 @@ public class FPSController : MonoBehaviour
     {
         GameObject bullet = Instantiate(bulletPrefab, playerCamera.ScreenToWorldPoint(Input.mousePosition), playerCamera.transform.rotation);
         bullet.GetComponent<BulletController>().gameManager = gameManager;
+
+        sfxAudioSource.PlayOneShot(shotAudio);
     }
 
     private void ShootCoin()
@@ -74,11 +76,9 @@ public class FPSController : MonoBehaviour
                 if (hit.collider.CompareTag("Coin"))
                 {
                     Destroy(hit.collider.gameObject);
-                    gameManager.coinsCaught++;
+                    gameManager.OnCoinCaught();
                 }
             }
-
-            sfxAudioSource.PlayOneShot(shotAudio);
         }
     }
 
@@ -114,13 +114,13 @@ public class FPSController : MonoBehaviour
 
         characterController.Move(movement);
 
-        if ((Mathf.Abs(_horizontalMovement) > 0.1f || Mathf.Abs(_verticalMovement) > 0.1f) && !audioSource.isPlaying)
+        if ((Mathf.Abs(_horizontalMovement) > 0.1f || Mathf.Abs(_verticalMovement) > 0.1f) && !footstepsAudioSource.isPlaying)
         {
-            audioSource.Play();
+            footstepsAudioSource.Play();
         }
         else if(_horizontalMovement == 0 && _verticalMovement == 0)
         {
-            audioSource.Stop();
+            footstepsAudioSource.Stop();
         }
     }
 }
