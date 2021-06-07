@@ -14,6 +14,9 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI spawnTimeText;
 
     public GameObject pauseGroup;
+
+    //public LoadingController loadingScreen;
+    public TransitionController transitionContoller;
     private bool isPaused;
 
     private void Start()
@@ -58,6 +61,8 @@ public class UIController : MonoBehaviour
     public void ExitBtn()
     {
         AudioManager.Instance.ChangeToGameMusic();
-        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
+        //loadingScreen.LoadLevel(0);
+        transitionContoller.TransitionToLevel(0);
     }
 }

@@ -139,13 +139,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car
       objectReference: {fileID: 0}
+    - target: {fileID: 100042, guid: 0e7ee4df08df88c4880f43398f9ad2c2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400050, guid: 0e7ee4df08df88c4880f43398f9ad2c2, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400050, guid: 0e7ee4df08df88c4880f43398f9ad2c2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.0800724
+      value: -5.73
       objectReference: {fileID: 0}
     - target: {fileID: 400050, guid: 0e7ee4df08df88c4880f43398f9ad2c2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -205,11 +209,6 @@ PrefabInstance:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1872177635968277084, guid: 68d62841ff9a6d343ba69359e3fffdd3, type: 3}
   m_PrefabInstance: {fileID: 1576082995}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1084876428 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400050, guid: 0e7ee4df08df88c4880f43398f9ad2c2, type: 3}
-  m_PrefabInstance: {fileID: 595247496}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1109221373
 GameObject:
@@ -496,7 +495,7 @@ PrefabInstance:
     - target: {fileID: 1872177635968277085, guid: 68d62841ff9a6d343ba69359e3fffdd3, type: 3}
       propertyPath: m_Target
       value: 
-      objectReference: {fileID: 1084876428}
+      objectReference: {fileID: 0}
     - target: {fileID: 1872177635968277085, guid: 68d62841ff9a6d343ba69359e3fffdd3, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -557,7 +556,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-18156
+  m_Name: pb_Mesh-35328
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
