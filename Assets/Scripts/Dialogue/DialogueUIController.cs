@@ -26,7 +26,9 @@ public class DialogueUIController : MonoBehaviour
         _isShowingDialogue = true;
 
         nameText.text = dialogue.characterName;
-        dialogueText.text = dialogue.dialogue[_currentLine];
+
+        StopAllCoroutines();
+        StartCoroutine(AnimateText(_currentDialogue.dialogue[_currentLine]));
     }
 
     public void NextLine()
@@ -39,11 +41,26 @@ public class DialogueUIController : MonoBehaviour
         if (_currentLine + 1 < _currentDialogue.dialogue.Count)
         {
             _currentLine++;
-            dialogueText.text = _currentDialogue.dialogue[_currentLine];
+
+            StopAllCoroutines();
+            StartCoroutine(AnimateText(_currentDialogue.dialogue[_currentLine]));
         }
         else
         {
             HideDialogueBox();
+        }
+    }
+
+    private IEnumerator AnimateText(string newLine) //apresenta caracter a caracter
+    {
+        dialogueText.text = "";
+
+        char[] charList = newLine.ToCharArray();
+
+        for (int i = 0; i < charList.Length; i++)
+        {
+            dialogueText.text += charList[i];
+            yield return new WaitForSeconds(0.05f);
         }
     }
 

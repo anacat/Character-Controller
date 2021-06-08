@@ -61,4 +61,12 @@ public class InventoryManager : MonoBehaviour
         i.SetSlot(item, this);
         itemUI.Add(i);
     }
+
+    public void DeleteItemFromInventory(InventoryItem item, InventorySlotUI itemSlot)
+    {
+        inventory.RemoveItem(item);
+
+        Destroy(itemSlot.gameObject);
+        itemUI.Remove(itemSlot);        
+    }
 }
